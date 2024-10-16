@@ -1,4 +1,4 @@
-const token = 'TOKEN'
+const token = 'TOKEN';
 const projectsContainer = document.getElementById('projects-container');
 const contributionsContainer = document.getElementById('contributions-container');
 
@@ -47,7 +47,7 @@ function createProjectCard(project, languages) {
   projectCard.innerHTML = `
     <a href="${project.html_url}" target="_blank">
       <h3>${project.name}</h3>
-      <p>${project.description || 'Aucune description disponible.'}</p>
+      <p>${project.description || 'No description available.'}</p>
       <div class="project-stats">
         <span><i class="fas fa-star"></i> ${project.stargazers_count} Stars</span>
         <span><i class="fas fa-code-branch"></i> ${project.forks_count} Forks</span>
@@ -71,10 +71,10 @@ fetch(`https://api.github.com/users/Kamionn/repos?sort=created&per_page=100`, { 
       fetch(project.languages_url, { headers: { 'Authorization': `token ${token}` } })
         .then(response => response.json())
         .then(languages => createProjectCard(project, languages))
-        .catch(error => console.error('Erreur lors de la récupération des langages:', error));
+        .catch(error => console.error('Error fetching languages:', error));
     });
   })
-  .catch(error => console.error('Erreur lors de la récupération des projets:', error));
+  .catch(error => console.error('Error fetching projects:', error));
 
 // Fetch recent contributions
 fetch(`https://api.github.com/users/Kamionn/events`, { headers: { 'Authorization': `token ${token}` } })
@@ -83,16 +83,16 @@ fetch(`https://api.github.com/users/Kamionn/events`, { headers: { 'Authorization
     const contributions = events.filter(event => ['PushEvent', 'PullRequestEvent', 'CreateEvent'].includes(event.type));
     if (contributionsContainer) {
       contributionsContainer.innerHTML = contributions.length
-        ? '<h2>Dernières Contributions</h2>' + contributions.slice(0, 5).map(event => {
+        ? '<h2>Recent Contributions</h2>' + contributions.slice(0, 5).map(event => {
             const contributionDate = new Date(event.created_at).toLocaleString();
             const repoName = event.repo.name;
             const commitCount = event.payload.commits ? event.payload.commits.length : 0;
-            return `<p>${repoName} - ${commitCount} commit(s) le ${contributionDate}</p>`;
+            return `<p>${repoName} - ${commitCount} commit(s) on ${contributionDate}</p>`;
           }).join('')
-        : '<p>Aucune contribution récente.</p>';
+        : '<p>No recent contributions.</p>';
     }
   })
-  .catch(error => console.error('Erreur lors de la récupération des contributions:', error));
+  .catch(error => console.error('Error fetching contributions:', error));
 
 // Function to fetch and display contributors of a project
 function fetchContributors(project, projectCard) {
@@ -112,7 +112,7 @@ function fetchContributors(project, projectCard) {
         projectCard.appendChild(contributorsSection);
       }
     })
-    .catch(error => console.error('Erreur lors de la récupération des contributeurs:', error));
+    .catch(error => console.error('Error fetching contributors:', error));
 }
 
 // Check API call limit
@@ -120,9 +120,9 @@ fetch('https://api.github.com/rate_limit', { headers: { 'Authorization': `token 
   .then(response => response.json())
   .then(data => {
     const remainingRequests = data.rate.remaining;
-    console.log(`Il reste ${remainingRequests} appels API avant de dépasser la limite.`);
+    console.log(`Remaining API calls: ${remainingRequests}`);
     if (remainingRequests === 0) {
-      alert('La limite d\'appels à l\'API GitHub est atteinte. Réessayez plus tard.');
+      alert('The GitHub API call limit has been reached. Please try again later.');
     }
   })
-  .catch(error => console.error('Erreur lors de la vérification de la limite d\'API:', error));
+  .catch(error => console.error('Error checking API limit:', error));
