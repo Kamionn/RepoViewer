@@ -18,11 +18,12 @@ span {
 
 .projects-container {
   display: grid;
-  grid-template-columns: repeat(3, minmax(225px, 0.20fr)); 
+  grid-template-columns: repeat(3, minmax(225px, 0.20fr));
   gap: 2rem;
   justify-content: center;
 }
 
+/* Project Card Styles */
 .project-card {
   background: rgba(34, 34, 34, 0.9);
   border-radius: 8px;
@@ -50,7 +51,7 @@ span {
 }
 
 .project-card a {
-  color: inherit; 
+  color: inherit;
   text-decoration: none;
 }
 
@@ -64,6 +65,7 @@ span {
   line-height: 1.5;
 }
 
+/* Project Stats */
 .project-stats {
   display: flex;
   justify-content: center;
@@ -77,6 +79,7 @@ span {
   margin-right: 5px;
 }
 
+/* Project Languages */
 .project-languages {
   margin-top: 15px;
   font-size: 0.75rem;
@@ -92,6 +95,7 @@ span {
   color: #007accc7;
 }
 
+/* Contributions Section */
 .contributions-container h2 {
   margin-top: 3rem;
   font-size: 1.8rem;
@@ -102,17 +106,7 @@ span {
   color: #aaa;
 }
 
-/* Media Queries */
-@media (max-width: 768px) {
-  .projects-container {
-    grid-template-columns: 1fr;
-  }
-
-  .project-card h3 {
-    font-size: 1.3rem;
-  }
-}
-
+/* Contributors Section */
 .contributors-section {
   margin-top: 10px;
   text-align: center;
@@ -142,6 +136,7 @@ span {
   font-weight: bold;
 }
 
+/* Image in Project Card */
 .project-card img {
   width: 1.5em;
   border-radius: 5px;
@@ -150,4 +145,15 @@ span {
 
 .project-card img:hover {
   transform: scale(1.05);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .projects-container {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card h3 {
+    font-size: 1.3rem;
+  }
 }
